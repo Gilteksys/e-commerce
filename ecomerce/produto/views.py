@@ -1,33 +1,36 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views import View
+from django.views.generic.detail import DetailView
+from . import models
 
 
-class ListaProdutos(View):
-    def get(self, *args, **kwargs):
-        return HttpResponse('listar')
+class ListaProdutos(ListView):
+    model = models.Produto
+    template_name = 'produto/lista.html'
+    context_object_name = 'produtos'
+    paginate_by = 4
 
 
-class DetalheProduto(ListView):
-    pass
+class DetalheProduto(DetailView):
+    model = models.Produto
+    template_name = 'produto/detalhe.html'
+    context_object_name = 'produto'
+    slug_url_kwarg = 'slug' 
 
 
 class AdicionarAoCarrinho(ListView):
-    pass
+    model = models.Produto
+    template_name = 'produto/adicionaraocarrinho.html'
+    context_object_name = 'produto'
 
 
 class RemoverDoCarrinho(ListView):
-    pass
+    model = models.Produto
 
 
 class Carrinho(ListView):
-    pass
+    model = models.Produto
 
 
 class Finalizar(ListView):
-    pass
-
-
-
-
+    model = models.Produto
